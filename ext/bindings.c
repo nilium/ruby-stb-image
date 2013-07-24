@@ -277,6 +277,7 @@ static VALUE sr_load_float_image(int argc, VALUE *argv, VALUE sr_self)
 /*
   call-seq:
     set_hdr_to_ldr_gamma(value) => value
+    hdr_to_ldr_gamma = value => value
 
   Sets the HDR to LDR gamma used when loading HDR images with load_image.
  */
@@ -289,6 +290,7 @@ static VALUE sr_set_hdr_to_ldr_gamma(VALUE self, VALUE gamma)
 /*
   call-seq:
     set_hdr_to_ldr_scale(value) => value
+    hdr_to_ldr_scale = value => value
 
   Sets the HDR to LDR scale used when loading HDR images with load_image.
  */
@@ -301,6 +303,7 @@ static VALUE sr_set_hdr_to_ldr_scale(VALUE self, VALUE scale)
 /*
   call-seq:
     set_ldr_to_hdr_gamma(value) => value
+    ldr_to_hdr_gamma = value => value
 
   Sets the LDR to HDR gamma used when loading LDR images with load_float_image.
  */
@@ -313,6 +316,7 @@ static VALUE sr_set_ldr_to_hdr_gamma(VALUE self, VALUE gamma)
 /*
   call-seq:
     set_ldr_to_hdr_scale(value) => value
+    ldr_to_hdr_scale = value => value
 
   Sets the LDR to HDR scale used when loading LDR images with load_float_image.
  */
@@ -379,9 +383,14 @@ void Init_stb_image_bindings(void)
   rb_define_singleton_method(s_stbi_module, "load_image", sr_load_image, -1);
   rb_define_singleton_method(s_stbi_module, "load_float_image", sr_load_float_image, -1);
 
-  rb_define_singleton_method(s_stbi_module, "hdr_to_ldr_gamma=", sr_set_hdr_to_ldr_gamma, 1);
-  rb_define_singleton_method(s_stbi_module, "hdr_to_ldr_scale=", sr_set_hdr_to_ldr_scale, 1);
-  rb_define_singleton_method(s_stbi_module, "ldr_to_hdr_gamma=", sr_set_ldr_to_hdr_gamma, 1);
-  rb_define_singleton_method(s_stbi_module, "ldr_to_hdr_scale=", sr_set_ldr_to_hdr_scale, 1);
+  rb_define_singleton_method(s_stbi_module, "set_hdr_to_ldr_gamma", sr_set_hdr_to_ldr_gamma, 1);
+  rb_define_singleton_method(s_stbi_module, "set_hdr_to_ldr_scale", sr_set_hdr_to_ldr_scale, 1);
+  rb_define_singleton_method(s_stbi_module, "set_ldr_to_hdr_gamma", sr_set_ldr_to_hdr_gamma, 1);
+  rb_define_singleton_method(s_stbi_module, "set_ldr_to_hdr_scale", sr_set_ldr_to_hdr_scale, 1);
+
+  rb_alias(rb_singleton_class(s_stbi_module), rb_intern("hdr_to_ldr_gamma="), rb_intern("set_hdr_to_ldr_gamma"));
+  rb_alias(rb_singleton_class(s_stbi_module), rb_intern("hdr_to_ldr_scale="), rb_intern("set_hdr_to_ldr_scale"));
+  rb_alias(rb_singleton_class(s_stbi_module), rb_intern("ldr_to_hdr_gamma="), rb_intern("set_ldr_to_hdr_gamma"));
+  rb_alias(rb_singleton_class(s_stbi_module), rb_intern("ldr_to_hdr_scale="), rb_intern("set_ldr_to_hdr_scale"));
 }
 
