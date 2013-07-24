@@ -40,7 +40,7 @@ It's pretty simple. Arguably, at least two or three steps here are optional.
 In addition, if you'd like to load an HDR image or any image as floats instead
 of bytes, you can use STBI.load_float_image, whose returned data is an array
 of floats rather than bytes. You can inspect the results of either by using
-info[0].unpack('f*') for HDR images and `'C*'` for LDR images.
+`info[0].unpack('f*')` for HDR images and `'C*'` for LDR images.
 
 
 License (or Lack Thereof)
